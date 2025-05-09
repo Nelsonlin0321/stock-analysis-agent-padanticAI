@@ -1,16 +1,12 @@
-from concurrent.futures import ThreadPoolExecutor
-import json
-import random
-import dotenv
-from functools import wraps
-import time
 import os
+import time
+from concurrent.futures import ThreadPoolExecutor
+from functools import wraps
+import dotenv
 import logfire
 from pydantic_ai.usage import UsageLimits
 from tqdm import tqdm
 
-from src.schema import SymbolWithIncreasePercentage
-from src.tool_dependencies import fetch_stock_percentage_increase
 dotenv.load_dotenv()
 
 LOGFIRE_TOKEN = os.getenv('LOGFIRE_TOKEN')
