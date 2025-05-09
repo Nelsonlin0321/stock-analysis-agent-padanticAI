@@ -1,6 +1,7 @@
 import os
 from pydantic_ai import RunContext
 from src.schema import Deps
+from src.utils_code_execution import code_execution_tool
 from src.utils_stock import capture_df_info, convert_to_markdown_table, fetch_stock_data, get_top_nasdaq_performance_stock
 
 
@@ -14,6 +15,7 @@ async def get_top_nasdaq_performance_stock_data(
     """
     top_nasdaq_performance_stock = get_top_nasdaq_performance_stock()
     symbol = top_nasdaq_performance_stock.symbol
+    symbol = "AAPL"
     df = fetch_stock_data(
         symbol=symbol, number_of_days=ctx.deps.number_of_days)
     sample_data_in_markdown = convert_to_markdown_table(df)
@@ -29,3 +31,8 @@ async def get_top_nasdaq_performance_stock_data(
         'data_csv_path': data_path,
         "pandas_dataframe_info": pandas_dataframe_info,
     }
+
+
+async def python_code_analysis_executor(ctx: RunContext[Deps]):
+    """Python code analysis executor."""
+    return code_execution_tool(ctx.messages[-1].content)
