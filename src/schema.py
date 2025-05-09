@@ -7,11 +7,12 @@
 from pydantic import BaseModel
 
 
-class topPerformanceStock(BaseModel):
+class SymbolWithIncreasePercentage(BaseModel):
     """Top performance stock with increased percentage."""
-
     symbol: str
-    percentage: floatModel):
+    percentage: float
+
+# class SeatPreference(BaseModel):
 #     row: int = Field(ge=1, le=30)
 #     seat: Literal['A', 'B', 'C', 'D', 'E', 'F']
 
