@@ -6,7 +6,7 @@ from pydantic_ai.providers.deepseek import DeepSeekProvider
 DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
 
 custom_http_client = AsyncClient(timeout=30)
-model = OpenAIModel(
+deepseek = OpenAIModel(
     'deepseek-chat',
     provider=DeepSeekProvider(
         api_key=DEEPSEEK_API_KEY,

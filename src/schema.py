@@ -1,4 +1,5 @@
-from dataclasses import Field, dataclass
+from dataclasses import dataclass
+from pydantic import BaseModel, Field
 import datetime
 from typing import Literal
 from pydantic import BaseModel
@@ -27,6 +28,7 @@ class FlightDetails(BaseModel):
     date: datetime.date
 
 
+# This is the workflow input schema
 @dataclass
 class Deps:
     web_page_text: str
