@@ -1,7 +1,7 @@
 from pydantic_ai import Agent
 from schema import Deps, FlightDetails, NoFlightFound
-from .search_agent_tools import extract_flights
 from src.models import deepseek
+from src.tools import extract_flights
 
 search_agent = Agent[Deps, FlightDetails | NoFlightFound](
     model=deepseek,
