@@ -1,3 +1,6 @@
+import pandas as pd
+from tabulate import tabulate
+from io import StringIO
 import json
 import random
 from src.utils import multi_threading, logfire, exponential_retry
@@ -36,6 +39,51 @@ def get_top_nasdaq_performance_stock() -> SymbolWithIncreasePercentage:
         f'Top performance stock: {top_stock_with_increased_percentage}')
 
     return top_stock_with_increased_percentage
+
+
+def capture_df_info(df):
+    """
+    Captures the output of df.info() into a string.
+
+    Parameters:
+        df (pandas.DataFrame): The dataframe to capture info from.
+
+    Returns:
+        str: The captured info as a string.
+    """
+    buffer = StringIO()
+    df.info(buf=buffer)
+    return buffer.getvalue()
+
+
+def convert_to_markdown_table(dataframe):
+    """
+    Converts the top 5 rows of a DataFrame to a Markdown table.
+
+    Args:
+        dataframe (pd.DataFrame): The DataFrame to convert.
+
+    Returns:
+        str: The Markdown table as a string.
+    """
+    return tabulate(dataframe.head(), headers='keys', tablefmt='pipe', showindex=False)
+
+
+def fetch_stock_data(symbol: str, number_of_days: int) -> pd.DataFrame:
+    """
+    Fetch stock data for a given symbol and number of days.
+
+    Args:
+        symbol (str): The stock symbol to fetch data for.
+        number_of_days (int): The number of days of historical data to fetch.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the stock data.
+    """
+    ticker = yf.Ticker(symbol)
+    df = ticker.history(period=f"{number_of_days}d")
+    df.reset_index(inplace=True)
+    return df
 
 
 if __name__ == "__main__":
